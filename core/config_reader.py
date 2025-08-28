@@ -1,10 +1,15 @@
 import json
 import os
+from enum import StrEnum
 
 class ConfigReader:
     PATH_FILE = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "browser_config.json"))
     _config_data = None
     BASE_URL = "/"
+
+    class Browsers(StrEnum):
+        CHROME = "chrome"
+        FIREFOX = "firefox"
 
     @classmethod
     def _get_config(cls):
@@ -15,7 +20,7 @@ class ConfigReader:
 
     @classmethod
     def get_browser_name(cls):
-        return cls._get_config().get("browser", "chrome")
+        return cls._get_config().get("browser", cls.Browsers.CHROME)
 
     @classmethod
     def get_window_size(cls):

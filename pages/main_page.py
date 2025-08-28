@@ -6,11 +6,10 @@ from forms.header import HeaderForm
 
 class MainPage(BasePage):
 
-    FEATURED_RECOMMEND_TITLE = (By.XPATH, "//h2[@*='home_featured_and_recommended']")
+    FEATURED_RECOMMEND_IMG = (By.ID, "home_maincap_v7")
 
     def __init__(self):
         super().__init__()
-        self.search = SearchPage()
         self.header = HeaderForm()
 
 

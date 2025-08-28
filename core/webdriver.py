@@ -1,5 +1,6 @@
 from selenium import webdriver
 from core.config_reader import ConfigReader
+from enum import Enum
 
 
 class WebDriver:
@@ -8,21 +9,15 @@ class WebDriver:
     @classmethod
     def get_driver(cls):
         if cls._driver is None:
-            browser = ConfigReader.get_browser_name().lower()
-
-            try:
-                cls._driver = cls._BROWSERS()[browser]()
-            except KeyError:
-                raise ValueError(f"Unsupported browser: {browser}")
+            browser = ConfigReader.Browsers(ConfigReader.get_browser_name())
+            print(browser)
+            match browser:
+                case ConfigReader.Browsers.CHROME:
+                    cls._driver = cls._create_chrome_driver()
+                case ConfigReader.Browsers.FIREFOX:
+                    cls._driver = cls._create_firefox_driver()
 
         return cls._driver
-
-    @classmethod
-    def _BROWSERS(cls):
-        return {
-            "chrome": cls._create_chrome_driver,
-            "firefox": cls._create_firefox_driver
-        }
 
     @classmethod
     def _create_chrome_driver(cls):
