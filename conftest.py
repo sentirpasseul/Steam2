@@ -1,4 +1,4 @@
-from enum import Enum
+from enum import StrEnum
 
 import pytest
 
@@ -8,16 +8,12 @@ from core.config_reader import ConfigReader
 
 LOCALES = ConfigReader.get_locales()
 
-class LOCALE_COOKIE_LANGUAGE(Enum):
+
+class LOCALE_COOKIE_LANGUAGE(StrEnum):
     RU = "russian"
     EN = "english"
 
-
-
 LANGUAGE_COOKIE_NAME = ConfigReader.get_language_cookie_name()
-
-
-
 
 @pytest.fixture(scope='function')
 def browser(locale):
@@ -36,6 +32,7 @@ def browser(locale):
 def locale(request):
     return request.param
 
-@pytest.fixture(params=tests.test_main_page.CASES, ids=lambda c: c["name"])
+
+@pytest.fixture(params=tests.test_main_page.TestMainPage.CASES, ids=lambda c: c["name"])
 def case(request):
     return request.param

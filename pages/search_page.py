@@ -3,53 +3,25 @@ from selenium.webdriver.common.by import By
 
 
 class SearchPage(BasePage):
-    SEARCH_SORT_BY = (By.XPATH, "//button[@*='sort_by_trigger']")
+    UNIQUE_SEARCH_PAGE_LOC = (By.ID, "sort_by_trigger")
+
+    SEARCH_SORT_BY = (By.ID, "sort_by_trigger")
     SEARCH_SORT_BY_PRICE_DESC = (By.XPATH, "//a[@*='Price_DESC']")
-    SEARCH_SORT_BY_PRICE_DESC_ACTIVE = (By.XPATH, "//input[@*='sort_by' and @value='Price_DESC']")
     SEARCH_RESULTS = (By.ID, "search_results")
     SEARCH_RESULT_ITEM_FINAL_PRICE = (By.XPATH, "//div[contains(@class,'discount_final_price')]")
-    SEARCH_RESULT_ITEM_SALES_PRICE = (
-        By.XPATH, "//div[contains(@class, 'discount_final_price your_price')]/div[2]")
+    LOADER_SEARCH_LOC = (By.ID, "search_result_container")
 
-    def get_all_prices(self):
-        final_prices = self.find_all(self.SEARCH_RESULT_ITEM_FINAL_PRICE)
-        sales_prices = self.find_all(self.SEARCH_RESULT_ITEM_SALES_PRICE)
-        prices_data = []
+    def __init__(self):
+        super().__init__()
+        self.is_open = self.wait_for_open(self.UNIQUE_SEARCH_PAGE_LOC)
 
-        for i, final_price_element in enumerate(final_prices):
-            try:
-                final_price = final_price_element.text.strip()
+    def sort_by(self):
+        self.wait.until(self.ec.element_to_be_clickable(self.SEARCH_SORT_BY)).click()
+        self.wait.until(self.ec.element_to_be_clickable(self.SEARCH_SORT_BY_PRICE_DESC)).click()
 
-                # Более безопасная проверка наличия скидочной цены
-                has_sale = (i < len(sales_prices) and
-                            sales_prices[i] and
-                            bool(sales_prices[i].text.strip()))
-
-                final_sale_price = sales_prices[i].text.strip() if has_sale else None
-
-                prices_data.append({
-                    'final_price': final_price,
-                    'sale': has_sale,
-                    'final_sale_price': final_sale_price
-                })
-            except Exception as e:
-                print(f"Ошибка при получении цены элемента {i}: {e}")
-                continue
-
-        return [
-            {
-                'final_price': final_prices_element.text,
-                'sale': i < len(sales_prices) and bool(sales_prices[i].text.strip()),
-                'final_sale_price': sales_prices[i].text if i < len(sales_prices) and sales_prices[
-                    i].text.strip() else None
-            }
-            for i, final_prices_element in enumerate(final_prices)
-        ]
+    def wait_loader(self):
+        self.wait.until(self.ec.visibility_of_element_located(self.LOADER_SEARCH_LOC))
 
     def get_prices(self):
-        all_prices = self.get_all_prices()
-        return [
-            item["final_sale_price"] if item["final_sale_price"] else
-            item["final_price"]
-            for item in all_prices[:10]
-        ]
+        prices = self.wait.until(self.ec.visibility_of_all_elements_located(self.SEARCH_RESULT_ITEM_FINAL_PRICE))
+        print(prices)

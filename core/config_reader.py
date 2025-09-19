@@ -6,6 +6,9 @@ class ConfigReader:
     PATH_FILE = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "browser_config.json"))
     _config_data = None
     BASE_URL = "/"
+    class WindowSizes(StrEnum):
+        WIDTH = "1920"
+        HEIGHT = "1080"
 
     class Browsers(StrEnum):
         CHROME = "chrome"
@@ -24,8 +27,8 @@ class ConfigReader:
 
     @classmethod
     def get_window_size(cls):
-        width = cls._get_config().get("window_width", "1920")
-        height = cls._get_config().get("window_height", "1080")
+        width = cls._get_config().get("window_width", cls.WindowSizes.WIDTH)
+        height = cls._get_config().get("window_height", cls.WindowSizes.HEIGHT)
         return f"{width},{height}"
 
     @classmethod
