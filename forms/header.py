@@ -3,5 +3,5 @@ from selenium.webdriver.common.by import By
 
 
 class HeaderForm(BasePage):
-    NAV_SEARCH_INPUT_LOC = (By.ID, "store_nav_search_term")
-    NAV_SEARCH_BUTTON = (By.ID, "store_search_link")
+    NAV_SEARCH_INPUT_LOC = (By.XPATH, "//form[@role='search']//input[@type='text']")
+    NAV_SEARCH_BUTTON = (By.XPATH, '//button[@type="submit"]')

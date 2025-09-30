@@ -5,8 +5,8 @@ from selenium.webdriver.support import expected_conditions as EC
 
 
 class BasePage:
-    TIMEOUT = 15
-    POLL_FREQUENCY = 0.1
+    TIMEOUT = 20
+    POLL_FREQUENCY = 0.2
 
     def __init__(self):
         self._driver = WebDriver.get_driver()

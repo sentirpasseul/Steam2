@@ -5,5 +5,6 @@
   "headless": false,
   "start_url": "https://store.steampowered.com/",
   "locales": ["ru", "en"],
-  "cookie_language_name": "Steam_Language"
+  "cookie_language_name": "Steam_Language",
+  "cookie_country": "steamCountry"
 }

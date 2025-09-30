@@ -1,6 +1,6 @@
 import json
 import os
-from enum import StrEnum
+from enum import StrEnum, Enum
 
 class ConfigReader:
     PATH_FILE = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "browser_config.json"))
@@ -48,8 +48,9 @@ class ConfigReader:
         return cls._get_config().get("cookie_language_name")
 
     @classmethod
-    def get_cookie_value_for(cls, locale: str, mapping: dict | None) -> str:
-        mapping = mapping or {}
-        return mapping.get(locale, locale)
+    def get_country_cookie_name(cls):
+        return cls._get_config().get("cookie_country")
+
+
 
 

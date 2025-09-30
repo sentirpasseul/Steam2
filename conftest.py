@@ -13,7 +13,10 @@ class LOCALE_COOKIE_LANGUAGE(StrEnum):
     RU = "russian"
     EN = "english"
 
+
+
 LANGUAGE_COOKIE_NAME = ConfigReader.get_language_cookie_name()
+COUNTRY_COOKIE_NAME = ConfigReader.get_country_cookie_name()
 
 @pytest.fixture(scope='function')
 def browser(locale):
@@ -21,14 +24,21 @@ def browser(locale):
     browser.get(ConfigReader.get_link())
     browser.delete_cookie(LANGUAGE_COOKIE_NAME)
     browser.add_cookie({"name": LANGUAGE_COOKIE_NAME,
-                        "value": LOCALE_COOKIE_LANGUAGE[locale.upper()].value})
+                        "value": locale.value})
+
+
+    browser.delete_cookie(COUNTRY_COOKIE_NAME)
+    browser.add_cookie({
+        "name": COUNTRY_COOKIE_NAME,
+        "value": locale.value.upper()
+    })
     browser.refresh()
 
     yield browser
     WebDriver.quit_driver()
 
 
-@pytest.fixture(params=LOCALES, ids=lambda v: v)
+@pytest.fixture(params=[LOCALE_COOKIE_LANGUAGE.RU, LOCALE_COOKIE_LANGUAGE.EN], ids=lambda v: v)
 def locale(request):
     return request.param
 

@@ -6,14 +6,15 @@ from selenium.webdriver.support import expected_conditions as EC
 
 
 class MainPage(BasePage):
-    UNIQUE_MAIN_PAGE_LOC = (By.ID, "home_featured_and_recommended")
+    UNIQUE_MAIN_PAGE_LOC = (By.XPATH, "//div[contains(@class, 'main_content')]")
+
 
     def __init__(self):
         super().__init__()
         self.header = HeaderForm()
-        self.is_open = self.wait_for_open(self.UNIQUE_MAIN_PAGE_LOC)
+        self.wait_for_open(self.UNIQUE_MAIN_PAGE_LOC)
 
-    def search_game(self):
-        self.wait.until(EC.visibility_of_element_located(self.header.NAV_SEARCH_INPUT_LOC))
-        button = self.wait.until(EC.visibility_of_element_located(self.header.NAV_SEARCH_BUTTON))
-        self._driver.execute_script("arguments[0].click();", button)
+
+    def search_game(self, query):
+        self.wait.until(EC.visibility_of_element_located(self.header.NAV_SEARCH_INPUT_LOC)).send_keys(query)
+        self.wait.until(EC.visibility_of_element_located(self.header.NAV_SEARCH_BUTTON)).click()
