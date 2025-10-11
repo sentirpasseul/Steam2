@@ -8,12 +8,10 @@ from selenium.webdriver.support import expected_conditions as EC
 class MainPage(BasePage):
     UNIQUE_MAIN_PAGE_LOC = (By.XPATH, "//div[contains(@class, 'main_content')]")
 
-
     def __init__(self):
         super().__init__()
         self.header = HeaderForm()
         self.wait_for_open(self.UNIQUE_MAIN_PAGE_LOC)
-
 
     def search_game(self, query):
         self.wait.until(EC.visibility_of_element_located(self.header.NAV_SEARCH_INPUT_LOC)).send_keys(query)

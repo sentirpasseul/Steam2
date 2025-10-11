@@ -15,5 +15,3 @@ class BasePage:
 
     def wait_for_open(self, locator):
         self.wait.until(EC.visibility_of_element_located(locator))
-
-

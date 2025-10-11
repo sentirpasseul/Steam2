@@ -23,10 +23,11 @@ class SearchPage(BasePage):
     def wait_loader(self):
         self.wait.until(self.ec.presence_of_all_elements_located(self.LOADER_SEARCH_LOC))
 
-    def get_prices(self, count=10):
+    def is_prices_sort_by_desc(self, count=10):
         self.sort_by()
         self.wait_loader()
-        prices_elements = self.wait.until(self.ec.visibility_of_all_elements_located(self.SEARCH_RESULT_ITEM_FINAL_PRICE))
+        prices_elements = self.wait.until(
+            self.ec.visibility_of_all_elements_located(self.SEARCH_RESULT_ITEM_FINAL_PRICE))
         [print(price.text, sep=', ') for price in prices_elements[:count]]
         prices = []
         for price in prices_elements[:count]:
@@ -36,6 +37,6 @@ class SearchPage(BasePage):
             if match is None:
                 prices.append(0)
 
-        is_prices_desc = all(prices[i] <= prices[i - 1] for i in range(1, len(prices)))
+        is_prices_desc = prices == sorted(prices)
         print("Prices desc: ", is_prices_desc)
         return is_prices_desc

@@ -2,10 +2,12 @@ import json
 import os
 from enum import StrEnum, Enum
 
+
 class ConfigReader:
-    PATH_FILE = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "browser_config.json"))
+    PATH_FILE = r"C:\Users\Dmitrii\PycharmProjects\Steam2\browser_config.json"
     _config_data = None
     BASE_URL = "/"
+
     class WindowSizes(StrEnum):
         WIDTH = "1920"
         HEIGHT = "1080"
@@ -50,7 +52,3 @@ class ConfigReader:
     @classmethod
     def get_country_cookie_name(cls):
         return cls._get_config().get("cookie_country")
-
-
-
-
