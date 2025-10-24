@@ -39,16 +39,20 @@ class ConfigReader:
 
     @classmethod
     def get_link(cls):
-        return cls._get_config().get("start_url", "https://store.steampowered.com/")
+        return cls._get_config()["start_url", "https://store.steampowered.com/"]
 
     @classmethod
     def get_locales(cls):
-        return cls._get_config().get("locales")
+        return cls._get_config()["locales"]
 
     @classmethod
     def get_language_cookie_name(cls):
-        return cls._get_config().get("cookie_language_name")
+        return cls._get_config()["cookie_language_name"]
 
     @classmethod
     def get_country_cookie_name(cls):
-        return cls._get_config().get("cookie_country")
+        return cls._get_config()["cookie_country"]
+
+    @classmethod
+    def get_poll_frequency(cls):
+        return cls._get_config()["poll_frequency"]

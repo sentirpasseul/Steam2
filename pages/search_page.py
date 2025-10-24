@@ -1,7 +1,7 @@
 from pages.base_page import BasePage
 from selenium.webdriver.common.by import By
 import re
-
+from selenium.webdriver.support import expected_conditions as EC
 
 class SearchPage(BasePage):
     UNIQUE_SEARCH_PAGE_LOC = (By.ID, "sort_by_trigger")
@@ -17,8 +17,8 @@ class SearchPage(BasePage):
         self.wait_for_open(self.UNIQUE_SEARCH_PAGE_LOC)
 
     def sort_by(self):
-        self.wait.until(self.ec.element_to_be_clickable(self.SEARCH_SORT_BY)).click()
-        self.wait.until(self.ec.element_to_be_clickable(self.SEARCH_SORT_BY_PRICE_DESC)).click()
+        self.wait.until(EC.element_to_be_clickable(self.SEARCH_SORT_BY)).click()
+        self.wait.until(EC.element_to_be_clickable(self.SEARCH_SORT_BY_PRICE_DESC)).click()
 
     def wait_loader(self):
         self.wait.until(self.ec.presence_of_all_elements_located(self.LOADER_SEARCH_LOC))
