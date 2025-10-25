@@ -40,7 +40,7 @@ class ConfigReader:
 
     @classmethod
     def get_link(cls):
-        return cls._get_config()["start_url", "https://store.steampowered.com/"]
+        return cls._get_config().get("start_url", "https://store.steampowered.com/")
 
     @classmethod
     def get_locales(cls):
