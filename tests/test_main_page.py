@@ -22,4 +22,4 @@ class TestMainPage:
         search_page = SearchPage()
 
         assert search_page.is_prices_sort_by_desc(
-            count=case['price']), f"Цены для '{case['name']}' не отсортированlы по убыванию"
+            count=case['price']), f"Цены для '{case['name']}' не отсортированы по убыванию"

@@ -22,22 +22,22 @@ COUNTRY_COOKIE_NAME = ConfigReader.get_country_cookie_name()
 def browser(locale):
     browser = WebDriver.get_driver()
     browser.get(ConfigReader.get_link())
+
     browser.delete_cookie(LANGUAGE_COOKIE_NAME)
+    browser.delete_cookie(COUNTRY_COOKIE_NAME)
+
     browser.add_cookie({"name": LANGUAGE_COOKIE_NAME,
                         "value": locale.value})
-
-    browser.delete_cookie(COUNTRY_COOKIE_NAME)
     browser.add_cookie({
         "name": COUNTRY_COOKIE_NAME,
-        "value": locale.value.upper()
-    })
+        "value": locale.name})
     browser.refresh()
 
     yield browser
     WebDriver.quit_driver()
 
 
-@pytest.fixture(params=[LOCALE_COOKIE_LANGUAGE.RU, LOCALE_COOKIE_LANGUAGE.EN], ids=lambda v: v)
+@pytest.fixture(params=[LOCALE_COOKIE_LANGUAGE.RU, LOCALE_COOKIE_LANGUAGE.EN], ids=str)
 def locale(request):
     return request.param
 

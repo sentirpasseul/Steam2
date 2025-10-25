@@ -21,13 +21,13 @@ class SearchPage(BasePage):
         self.wait.until(EC.element_to_be_clickable(self.SEARCH_SORT_BY_PRICE_DESC)).click()
 
     def wait_loader(self):
-        self.wait.until(self.ec.presence_of_all_elements_located(self.LOADER_SEARCH_LOC))
+        self.wait.until(EC.presence_of_all_elements_located(self.LOADER_SEARCH_LOC))
 
     def is_prices_sort_by_desc(self, count=10):
         self.sort_by()
         self.wait_loader()
         prices_elements = self.wait.until(
-            self.ec.visibility_of_all_elements_located(self.SEARCH_RESULT_ITEM_FINAL_PRICE))
+            EC.visibility_of_all_elements_located(self.SEARCH_RESULT_ITEM_FINAL_PRICE))
         [print(price.text, sep=', ') for price in prices_elements[:count]]
         prices = []
         for price in prices_elements[:count]:

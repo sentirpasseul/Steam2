@@ -1,7 +1,5 @@
 from selenium import webdriver
 from core.config_reader import ConfigReader
-from enum import Enum
-
 
 class WebDriver:
     _driver = None

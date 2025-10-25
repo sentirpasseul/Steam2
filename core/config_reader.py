@@ -4,7 +4,8 @@ from enum import StrEnum, Enum
 
 
 class ConfigReader:
-    PATH_FILE = r"C:\Users\Dmitrii\PycharmProjects\Steam2\browser_config.json"
+    BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    PATH_FILE = os.path.join(BASE_DIR, "browser_config.json")
     _config_data = None
     BASE_URL = "/"
 
