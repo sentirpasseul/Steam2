@@ -29,7 +29,6 @@ class SearchPage(BasePage):
         self.wait_loader()
         prices_elements = self.wait.until(
             EC.visibility_of_all_elements_located(self.SEARCH_RESULT_ITEM_FINAL_PRICE))
-        [print(price.text, sep=', ') for price in prices_elements[:price]]
         prices = []
         for price in prices_elements[:price]:
             match = re.search(r"\d+(?:[\.,]\d+)?", price.text)
@@ -39,6 +38,4 @@ class SearchPage(BasePage):
                 prices.append(0)
 
         is_prices_desc = prices == sorted(prices, reverse=True)
-        #print(prices)
-        #print("Prices desc: ", is_prices_desc)
         return is_prices_desc

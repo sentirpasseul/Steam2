@@ -10,6 +10,10 @@ class MainPage(BasePage):
     NAV_SEARCH_BUTTON = (By.XPATH, '//button[@type="submit"]')
 
     def search_game(self, query):
-        self.wait_for_open(self.UNIQUE_MAIN_PAGE_LOC)
-        self.wait.until(EC.visibility_of_element_located(self.NAV_SEARCH_INPUT_LOC)).send_keys(query)
-        self.wait.until(EC.visibility_of_element_located(self.NAV_SEARCH_BUTTON)).click()
+        try:
+            self.wait_for_open(self.UNIQUE_MAIN_PAGE_LOC)
+            self.wait.until(EC.visibility_of_element_located(self.NAV_SEARCH_INPUT_LOC)).send_keys(query)
+            self.wait.until(EC.visibility_of_element_located(self.NAV_SEARCH_BUTTON)).click()
+            return True
+        except TimeoutError:
+            return False
