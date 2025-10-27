@@ -23,14 +23,14 @@ class SearchPage(BasePage):
     def wait_loader(self):
         self.wait.until(EC.presence_of_all_elements_located(self.LOADER_SEARCH_LOC))
 
-    def is_prices_sort_by_desc(self, count=10):
+    def is_prices_sort_by_desc(self, price=10):
         self.sort_by()
         self.wait_loader()
         prices_elements = self.wait.until(
             EC.visibility_of_all_elements_located(self.SEARCH_RESULT_ITEM_FINAL_PRICE))
-        [print(price.text, sep=', ') for price in prices_elements[:count]]
+        [print(price.text, sep=', ') for price in prices_elements[:price]]
         prices = []
-        for price in prices_elements[:count]:
+        for price in prices_elements[:price]:
             match = re.search(r"\d+(?:[\.,]\d+)?", price.text)
             if match:
                 prices.append(float(match.group()))

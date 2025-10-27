@@ -17,9 +17,9 @@ class TestMainPage:
     def test_search_game_prices_sorted_desc(self, browser, locale, case):
         main_page = MainPage()
 
-        assert main_page.search_game(case["query"]), f"Не получилось найти игру '{case['name']}'"
+        assert main_page.search_game(case["query"]), f"Не получилось найти игру '{case['query']}'"
 
         search_page = SearchPage()
 
         assert search_page.is_prices_sort_by_desc(
-            count=case['price']), f"Цены для '{case['name']}' не отсортированы по убыванию"
+            price=case['price']), f"Цены для '{case['name']}' не отсортированы по убыванию"
