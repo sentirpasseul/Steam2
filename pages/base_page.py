@@ -5,7 +5,7 @@ from selenium.webdriver.support import expected_conditions as EC
 
 
 class BasePage:
-    TIMEOUT = 20
+    TIMEOUT = 10
 
     def __init__(self):
         self._driver = WebDriver.get_driver()
