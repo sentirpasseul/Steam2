@@ -13,4 +13,4 @@ class BasePage:
         self.wait = WebDriverWait(self._driver, self.TIMEOUT, poll_frequency=self._poll_frequency)
 
     def wait_for_open(self, locator):
-        self.wait.until(EC.visibility_of_element_located(locator))
+        return True if self.wait.until(EC.visibility_of_element_located(locator)) else False

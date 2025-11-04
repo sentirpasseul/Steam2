@@ -9,9 +9,7 @@ class ConfigReader:
     _config_data = None
     BASE_URL = "/"
 
-    class WindowSizes(StrEnum):
-        WIDTH = "1920"
-        HEIGHT = "1080"
+    WINDOW_SIZE = f"{1920}, {1080}"
 
     class Browsers(StrEnum):
         CHROME = "chrome"
@@ -30,9 +28,7 @@ class ConfigReader:
 
     @classmethod
     def get_window_size(cls):
-        width = cls._get_config().get("window_width", cls.WindowSizes.WIDTH)
-        height = cls._get_config().get("window_height", cls.WindowSizes.HEIGHT)
-        return f"{width},{height}"
+        return cls.WINDOW_SIZE.split(',')
 
     @classmethod
     def get_headless(cls):
@@ -40,7 +36,7 @@ class ConfigReader:
 
     @classmethod
     def get_link(cls):
-        return cls._get_config().get("start_url", "https://store.steampowered.com/")
+        return cls._get_config()["start_url"]
 
     @classmethod
     def get_locales(cls):

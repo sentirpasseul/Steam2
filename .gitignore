@@ -67,7 +67,6 @@ test_videos/
 *.yaml
 *.yml
 config/
-browser_config.json
 
 # --- VSCode / Other editors ---
 .vscode/

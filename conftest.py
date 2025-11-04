@@ -1,15 +1,12 @@
 from enum import StrEnum
 
 import pytest
-
-import tests.test_main_page
 from core.webdriver import WebDriver
 from core.config_reader import ConfigReader
 
 LOCALES = ConfigReader.get_locales()
 
-
-class LOCALE_COOKIE_LANGUAGE(StrEnum):
+class LocaleCookieLanguage(StrEnum):
     RU = "russian"
     EN = "english"
 
@@ -37,11 +34,6 @@ def browser(locale):
     WebDriver.quit_driver()
 
 
-@pytest.fixture(params=[LOCALE_COOKIE_LANGUAGE.RU, LOCALE_COOKIE_LANGUAGE.EN], ids=str)
+@pytest.fixture(params=[LocaleCookieLanguage.RU, LocaleCookieLanguage.EN])
 def locale(request):
-    return request.param
-
-
-@pytest.fixture(params=tests.test_main_page.CASES, ids=lambda c: c["name"])
-def case(request):
     return request.param

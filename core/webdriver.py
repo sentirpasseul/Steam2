@@ -31,7 +31,7 @@ class WebDriver:
         if ConfigReader.get_headless():
             options.add_argument("--headless=new")
         driver = webdriver.Firefox(options=options)
-        width, height = map(int, ConfigReader.get_window_size().split(","))
+        width, height = ConfigReader.get_window_size()
         driver.set_window_size(width, height)
         return driver
 
