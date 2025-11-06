@@ -17,7 +17,7 @@ COUNTRY_COOKIE_NAME = ConfigReader.get_country_cookie_name()
 
 @pytest.fixture(scope='function')
 def browser(locale):
-    browser = WebDriver.get_driver()
+    browser = WebDriver()
     browser.get(ConfigReader.get_link())
 
     browser.delete_cookie(LANGUAGE_COOKIE_NAME)

@@ -5,17 +5,14 @@ from core.config_reader import ConfigReader
 class WebDriver:
     _driver = None
 
-    @classmethod
-    def get_driver(cls):
+    def __new__(cls, *args, **kwargs):
         if cls._driver is None:
             browser = ConfigReader.Browsers(ConfigReader.get_browser_name())
-            print(browser)
             match browser:
                 case ConfigReader.Browsers.CHROME:
                     cls._driver = cls._create_chrome_driver()
                 case ConfigReader.Browsers.FIREFOX:
                     cls._driver = cls._create_firefox_driver()
-
         return cls._driver
 
     @classmethod

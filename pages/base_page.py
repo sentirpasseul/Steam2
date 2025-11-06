@@ -8,7 +8,7 @@ class BasePage:
     TIMEOUT = 10
 
     def __init__(self):
-        self._driver = WebDriver.get_driver()
+        self._driver = WebDriver()
         self._poll_frequency = ConfigReader.get_poll_frequency()
         self.wait = WebDriverWait(self._driver, self.TIMEOUT, poll_frequency=self._poll_frequency)
 
