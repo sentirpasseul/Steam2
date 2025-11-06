@@ -9,8 +9,6 @@ class ConfigReader:
     _config_data = None
     BASE_URL = "/"
 
-    WINDOW_SIZE = f"{1920}, {1080}"
-
     class Browsers(StrEnum):
         CHROME = "chrome"
         FIREFOX = "firefox"
@@ -28,7 +26,11 @@ class ConfigReader:
 
     @classmethod
     def get_window_size(cls):
-        return cls.WINDOW_SIZE.split(',')
+        return cls._get_config()["window_size"]
+
+    @classmethod
+    def get_options_for_browser(cls):
+        return cls._get_config()["options"]
 
     @classmethod
     def get_headless(cls):

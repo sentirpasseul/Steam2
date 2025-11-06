@@ -1,6 +1,7 @@
 from selenium import webdriver
 from core.config_reader import ConfigReader
 
+
 class WebDriver:
     _driver = None
 
@@ -20,19 +21,26 @@ class WebDriver:
     @classmethod
     def _create_chrome_driver(cls):
         options = webdriver.ChromeOptions()
-        if ConfigReader.get_headless():
-            options.add_argument("--headless=new")
-        options.add_argument(f"--window-size={ConfigReader.get_window_size()}")
+        for option in ConfigReader.get_options_for_browser():
+            match option:
+                case "--window-size":
+                    options.add_argument(option + f"={ConfigReader.get_window_size()}")
+                case "--headless":
+                    if ConfigReader.get_headless():
+                        options.add_argument(option)
         return webdriver.Chrome(options=options)
 
     @classmethod
     def _create_firefox_driver(cls):
         options = webdriver.FirefoxOptions()
-        if ConfigReader.get_headless():
-            options.add_argument("--headless=new")
+        width, height = ConfigReader.get_window_size().split(",")
         driver = webdriver.Firefox(options=options)
-        width, height = ConfigReader.get_window_size()
-        driver.set_window_size(width, height)
+        for option in ConfigReader.get_options_for_browser():
+            match option:
+                case '--window-size':
+                    driver.set_window_size(width, height)
+                case "--headless":
+                    options.add_argument(option)
         return driver
 
     @classmethod
