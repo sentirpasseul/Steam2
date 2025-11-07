@@ -1,0 +1,14 @@
+{
+  "browser": "chrome",
+  "window_size": "1920, 1080",
+  "headless": false,
+  "start_url": "https://store.steampowered.com/",
+  "options": [
+    "--headless=new",
+    "--window-size"
+  ],
+  "locales": ["ru", "en"],
+  "cookie_language_name": "Steam_Language",
+  "cookie_country": "steamCountry",
+  "poll_frequency": 0.1
+}
