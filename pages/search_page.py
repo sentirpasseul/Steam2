@@ -2,6 +2,7 @@ from pages.base_page import BasePage
 from selenium.webdriver.common.by import By
 import re
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.common.exceptions import TimeoutException
 
 
 class SearchPage(BasePage):
@@ -12,6 +13,13 @@ class SearchPage(BasePage):
     SEARCH_RESULTS = (By.ID, "search_results")
     SEARCH_RESULT_ITEM_FINAL_PRICE = (By.XPATH, "//div[contains(@class,'discount_final_price')]")
     LOADER_SEARCH_LOC = (By.XPATH, "//*[@id='search_result_container' and @style='opacity: 0.5;']")
+
+    def wait_for_open(self):
+        try:
+            self.wait.until(EC.presence_of_element_located(self.UNIQUE_SEARCH_PAGE_LOC))
+            return True
+        except TimeoutException:
+            return False
 
     def sort_by_price_desc(self):
         self.wait.until(EC.element_to_be_clickable(self.SEARCH_SORT_BY)).click()

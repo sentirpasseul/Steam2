@@ -30,12 +30,11 @@ class WebDriver:
     @classmethod
     def _create_firefox_driver(cls):
         options = webdriver.FirefoxOptions()
-        width, height = ConfigReader.get_window_size().split(",")
         driver = webdriver.Firefox(options=options)
         for option in ConfigReader.get_options_for_browser():
             match option:
                 case '--window-size':
-                    driver.set_window_size(width, height)
+                    options.add_argument(option + f"={ConfigReader.get_window_size()}")
                 case "--headless":
                     options.add_argument(option)
         return driver

@@ -6,14 +6,8 @@ from core.config_reader import ConfigReader
 
 LOCALES = ConfigReader.get_locales()
 
-class LocaleCookieLanguage(StrEnum):
-    RU = "russian"
-    EN = "english"
-
-
 LANGUAGE_COOKIE_NAME = ConfigReader.get_language_cookie_name()
 COUNTRY_COOKIE_NAME = ConfigReader.get_country_cookie_name()
-
 
 @pytest.fixture(scope='function')
 def browser(locale):
@@ -34,6 +28,6 @@ def browser(locale):
     WebDriver.quit_driver()
 
 
-@pytest.fixture(params=[LocaleCookieLanguage.RU, LocaleCookieLanguage.EN])
+@pytest.fixture(params=[ConfigReader.LocaleCookieLanguage.RU, ConfigReader.LocaleCookieLanguage.EN])
 def locale(request):
     return request.param

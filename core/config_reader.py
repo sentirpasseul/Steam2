@@ -13,6 +13,10 @@ class ConfigReader:
         CHROME = "chrome"
         FIREFOX = "firefox"
 
+    class LocaleCookieLanguage(StrEnum):
+        RU = "russian"
+        EN = "english"
+
     @classmethod
     def _get_config(cls):
         if cls._config_data is None:

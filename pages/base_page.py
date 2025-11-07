@@ -9,8 +9,7 @@ class BasePage:
 
     def __init__(self):
         self._driver = WebDriver()
-        self._poll_frequency = ConfigReader.get_poll_frequency()
-        self.wait = WebDriverWait(self._driver, self.TIMEOUT, poll_frequency=self._poll_frequency)
+        self.fast_poll_frequency = ConfigReader.get_poll_frequency()
+        self.wait = WebDriverWait(self._driver, self.TIMEOUT)
+        self.wait_with_fast_poll_frequency = WebDriverWait(self._driver, self.TIMEOUT, poll_frequency=self.fast_poll_frequency)
 
-    def wait_for_open(self, locator):
-        return True if self.wait.until(EC.visibility_of_element_located(locator)) else False
